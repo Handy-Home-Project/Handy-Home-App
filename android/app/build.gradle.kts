@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.handy_home.app.handy_home_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "21.3.6528147"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -36,9 +36,18 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
         }
+        debug {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation(project(":unityLibrary"))
 }
