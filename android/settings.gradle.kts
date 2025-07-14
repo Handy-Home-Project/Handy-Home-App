@@ -23,3 +23,8 @@ plugins {
 }
 
 include(":app")
+
+// unity library에 의한 추가 설정  
+include(":unityLibrary")
+project(":unityLibrary").projectDir = file("unityLibrary")
+
