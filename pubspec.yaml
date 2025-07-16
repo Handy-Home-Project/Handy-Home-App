@@ -73,6 +73,7 @@ dev_dependencies:
   retrofit_generator: ^9.1.5
   riverpod_generator: ^2.6.3
   riverpod_lint: ^2.6.3
+  json_serializable: ^6.9.0
   
   flutter_test:
     sdk: flutter
