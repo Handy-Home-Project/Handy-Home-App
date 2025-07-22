@@ -6,14 +6,10 @@ part of 'home_data_source.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _HomeDataSource implements HomeDataSource {
-  _HomeDataSource(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+  _HomeDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -23,27 +19,22 @@ class _HomeDataSource implements HomeDataSource {
 
   @override
   Future<ApiResponseListModel<ComplexModel>> getComplexesFromKeyword(
-      String keyword) async {
+    String keyword,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'keyword': keyword};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponseListModel<ComplexModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/home/search',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<ApiResponseListModel<ComplexModel>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/home/search',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late ApiResponseListModel<ComplexModel> _value;
     try {
@@ -57,28 +48,22 @@ class _HomeDataSource implements HomeDataSource {
 
   @override
   Future<ApiResponseModel<ComplexDetailModel>> getComplexDetailFromComplexNo(
-      dynamic complexNo) async {
+    dynamic complexNo,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options =
-        _setStreamType<ApiResponseModel<ComplexDetailModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/home/floor_plan/${complexNo}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            )));
+    final _options = _setStreamType<ApiResponseModel<ComplexDetailModel>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/home/floor_plan/${complexNo}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late ApiResponseModel<ComplexDetailModel> _value;
     try {
@@ -103,10 +88,7 @@ class _HomeDataSource implements HomeDataSource {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

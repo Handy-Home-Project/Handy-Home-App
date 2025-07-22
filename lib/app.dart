@@ -22,6 +22,8 @@ class HandyHomeApplication extends StatelessWidget {
             final hasUserEntity =
                 container.read(mainProvider).userEntity != null;
 
+            return HomeScreen();
+
             // TODO - [20250102] 집 선택 유무 확인 후 HomeScreen 으로 넘기는 기능 필요
             if (hasUserEntity) {
               return const HomeScreen();

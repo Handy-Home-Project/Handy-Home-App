@@ -21,11 +21,11 @@ class AppTheme {
       backgroundColor: kWhite,
       surfaceTintColor: kTransparent,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
       backgroundColor: kWhite,
       surfaceTintColor: kTransparent,
     ),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       color: kWhite,
       surfaceTintColor: kTransparent,
       elevation: 0,
@@ -52,11 +52,11 @@ class AppTheme {
       backgroundColor: kBlack,
       surfaceTintColor: kTransparent,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
       backgroundColor: kBlack,
       surfaceTintColor: kTransparent,
     ),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       color: kBlack,
       surfaceTintColor: kTransparent,
       elevation: 0,

@@ -32,6 +32,18 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/unity/DemoApp/Builds/
+/unity/DemoApp/Library/
+/unity/DemoApp/Logs/
+/unity/DemoApp/obj/
+/unity/DemoApp/Temp/
+/unity/DemoApp/UserSettings/
+
+*.*.dart
+/android/unityLibrary/
+/android/shared/
+/android/launcher/
+/android/flutterunitywidgets.apk/
 
 # Symbolication related
 app.*.symbols
