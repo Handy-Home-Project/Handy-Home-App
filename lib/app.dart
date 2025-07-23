@@ -17,17 +17,17 @@ class HandyHomeApplication extends StatelessWidget {
         scaffoldMessengerKey: SnackBarHelper.messengerKey,
         debugShowCheckedModeBanner: false,
         home: Builder(
-          builder: (context) {
-            final container = ProviderContainer();
-            final hasUserEntity =
-                container.read(mainProvider).userEntity != null;
+          builder: (context) => Consumer(
+            builder: (context, ref, child) {
+              final hasUserEntity = ref.watch(mainProvider).userEntity != null;
 
-            if (hasUserEntity) {
-              return const HomeScreen();
-            } else {
-              return const OnboardingScreen();
-            }
-          },
+              if (hasUserEntity) {
+                return const HomeScreen();
+              } else {
+                return const OnboardingScreen();
+              }
+            },
+          )
         ),
       ),
     );

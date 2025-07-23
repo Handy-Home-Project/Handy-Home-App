@@ -101,6 +101,7 @@ flutter:
     - assets/anim/
     - assets/icons/
     - assets/images/
+    - assets/logo/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
