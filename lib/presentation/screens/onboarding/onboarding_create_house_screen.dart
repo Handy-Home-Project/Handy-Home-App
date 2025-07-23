@@ -71,7 +71,7 @@ class OnboardingCreateHouseScreen extends ConsumerWidget {
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               child: Image.asset(
                 imageUrl,
-                height: 160,
+                height: 120,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),

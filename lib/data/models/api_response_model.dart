@@ -4,7 +4,7 @@ import '../../commons/utils/generic_converter.dart';
 
 part 'api_response_model.g.dart';
 
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true)
 class ApiResponseModel<T> {
   final int statusCd;
 

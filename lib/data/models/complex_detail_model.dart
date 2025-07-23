@@ -5,7 +5,7 @@ import 'floor_plan_model.dart';
 
 part 'complex_detail_model.g.dart';
 
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true)
 class ComplexDetailModel {
   final ComplexModel complex;
 

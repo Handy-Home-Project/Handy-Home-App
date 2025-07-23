@@ -4,13 +4,32 @@ import 'package:handy_home_app/commons/theme/colors.dart';
 import 'package:handy_home_app/commons/utils/snack_bar_helper.dart';
 import 'package:handy_home_app/presentation/components/button/handy_home_button1.dart';
 import 'package:handy_home_app/presentation/providers/onboarding_provider.dart';
+import 'package:handy_home_app/presentation/screens/home_screen.dart';
 import 'package:lottie/lottie.dart';
 
-class OnboardingCompleteScreen extends ConsumerWidget {
-  const OnboardingCompleteScreen({super.key});
+import '../../../commons/route/no_animation_route.dart';
+
+class OnboardingCompleteScreen extends ConsumerStatefulWidget {
+  const OnboardingCompleteScreen({super.key, required this.imagePath});
+
+  final String imagePath;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<OnboardingCompleteScreen> createState() => _OnboardingCompleteScreenState();
+}
+
+class _OnboardingCompleteScreenState extends ConsumerState<OnboardingCompleteScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(onboardingProvider.notifier).createHome(widget.imagePath);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final onboardingState = ref.watch(onboardingProvider);
 
     return Scaffold(
@@ -59,14 +78,12 @@ class OnboardingCompleteScreen extends ConsumerWidget {
                   ),
                   child: HandyHomeButton1(
                     text: '다음',
-                    onTap:
-                        onboardingState.isLoadingComplete
-                            ? () {
-                              SnackBarHelper.showSnackBar(
-                                message: '이 기능은 현재 준비 중 입니다.',
-                              );
-                            }
-                            : null,
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        NoAnimationRoute(builder: (context) => HomeScreen()),
+                      );
+                    }
                   ),
                 ),
               ),

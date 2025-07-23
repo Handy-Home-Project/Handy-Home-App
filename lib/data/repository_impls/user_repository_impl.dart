@@ -13,9 +13,15 @@ class UserRepositoryImpl implements UserRepository {
     : _userDataSource = userDataSource;
 
   @override
-  Future<Result<UserModel, DioException>> createUser(String name) async {
+  Future<Result<UserModel, DioException>> createUser(String id, String name, String password) async {
     try {
-      final result = await _userDataSource.createUser({"name": name});
+      final result = await _userDataSource.createUser(
+        {
+          "id": id,
+          "name": name,
+          "password": password,
+        },
+      );
       return Result.success(result.body);
     } on DioException catch (e, t) {
       log("createUser", error: e, stackTrace: t);

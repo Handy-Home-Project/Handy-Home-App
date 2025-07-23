@@ -24,13 +24,13 @@ class OnboardingNameInputScreen extends ConsumerWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 TextSpan(
-                  text: '사용자 이름',
+                  text: '사용자 정보',
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge!.copyWith(color: kBlue1),
                 ),
                 TextSpan(
-                  text: '이 필요해요',
+                  text: '가 필요해요',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
@@ -38,19 +38,37 @@ class OnboardingNameInputScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 60),
           HandyHomeTextEditingBox(
+            controller: ref.read(onboardingProvider).idController,
+            onChanged: (text) {
+              ref.read(onboardingProvider).idController.text = text;
+            },
+            hint: '아이디를 입력해주세요',
+          ),
+          SizedBox(height: 14),
+          HandyHomeTextEditingBox(
             controller: ref.read(onboardingProvider).nameController,
             onChanged: (text) {
               ref.read(onboardingProvider).nameController.text = text;
             },
             hint: '이름을 입력해주세요',
           ),
-          const Spacer(),
-          HandyHomeButton1(
-            text: '다음',
-            onTap: () {
-              FocusScope.of(context).unfocus();
-              ref.read(onboardingProvider.notifier).createUser();
+          SizedBox(height: 14),
+          HandyHomeTextEditingBox(
+            controller: ref.read(onboardingProvider).passwordController,
+            onChanged: (text) {
+              ref.read(onboardingProvider).passwordController.text = text;
             },
+            hint: '비밀번호를 입력해주세요',
+            hideText: true,
+          ),
+          SizedBox(height: 14),
+          HandyHomeTextEditingBox(
+            controller: ref.read(onboardingProvider).passwordMatchController,
+            onChanged: (text) {
+              ref.read(onboardingProvider).passwordMatchController.text = text;
+            },
+            hint: '비밀번호를 확인해주세요',
+            hideText: true,
           ),
         ],
       ),

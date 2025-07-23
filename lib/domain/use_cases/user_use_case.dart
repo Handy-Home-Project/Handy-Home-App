@@ -13,8 +13,8 @@ class UserUseCase {
   }) : _sharedPreferencesRepository = sharedPreferencesRepository,
        _userRepository = userRepository;
 
-  Future<UserEntity?> createUser(String name) async {
-    final result = await _userRepository.createUser(name);
+  Future<UserEntity?> createUser(String id, String name, String password) async {
+    final result = await _userRepository.createUser(id, name, password);
     if (result.isError()) return null;
 
     final userEntity = UserEntity.fromUserModel(result.getOrThrow());

@@ -2,7 +2,7 @@ import '../../data/models/user_model.dart';
 
 class UserEntity {
 
-  final int id;
+  final String id;
 
   final String name;
 

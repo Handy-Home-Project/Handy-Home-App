@@ -20,6 +20,7 @@ class HandyHomeButton1 extends StatelessWidget {
     return GestureDetector(
       onTap: disable ? null : onTap,
       child: Container(
+        height: 56,
         padding: const EdgeInsets.symmetric(vertical: 18),
         alignment: Alignment.center,
         decoration: BoxDecoration(

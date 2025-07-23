@@ -6,6 +6,8 @@ import 'package:handy_home_app/presentation/screens/onboarding/onboarding_create
 import 'package:handy_home_app/presentation/screens/onboarding/onboarding_name_input_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../components/button/handy_home_button1.dart';
+
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
@@ -38,9 +40,10 @@ class OnboardingScreen extends ConsumerWidget {
             Expanded(
               child: PageView(
                 controller: ref.read(onboardingProvider).pageController,
+                onPageChanged: ref.read(onboardingProvider.notifier).changePage,
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
-                  OnboardingNameInputScreen(),
+                  SingleChildScrollView(child: OnboardingNameInputScreen()),
                   OnboardingCreateHouseScreen(),
                 ],
               ),
@@ -48,6 +51,16 @@ class OnboardingScreen extends ConsumerWidget {
           ],
         ),
       ),
+      bottomNavigationBar: ref.watch(onboardingProvider).currentPage == 0 ? Padding(
+        padding: const EdgeInsets.all(20),
+        child: HandyHomeButton1(
+          text: '다음',
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            ref.read(onboardingProvider.notifier).createUser();
+          },
+        ),
+      ) : null,
     );
   }
 }

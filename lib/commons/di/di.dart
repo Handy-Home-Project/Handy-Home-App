@@ -17,7 +17,7 @@ class DependencyInjection {
   static Future<void> configure() async {
     // Dio
     getIt.registerSingleton<Dio>(
-      Dio(BaseOptions(baseUrl: "http://handyhome.tplinkdns.com:8080")),
+      Dio(BaseOptions(baseUrl: "http://172.30.1.76:8080")),
     );
 
     // DataSource
