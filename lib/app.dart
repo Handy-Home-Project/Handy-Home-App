@@ -18,6 +18,7 @@ class HandyHomeApplication extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Builder(
           builder: (context) {
+            return const HomeScreen();
             final container = ProviderContainer();
             final hasUserEntity =
                 container.read(mainProvider).userEntity != null;

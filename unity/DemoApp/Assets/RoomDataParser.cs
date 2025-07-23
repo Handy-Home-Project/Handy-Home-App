@@ -104,10 +104,10 @@ public class RoomDataParser : MonoBehaviour
     void Start()
     {
         //JSON 문자열이 있으면 파싱
-        if (!string.IsNullOrEmpty(jsonData))
-        {
-            ParseRoomData(jsonData);
-        }
+        // if (!string.IsNullOrEmpty(jsonData))
+        // {
+        //     ParseRoomData(jsonData);
+        // }
     }
     
     public void ParseRoomData(string json)
