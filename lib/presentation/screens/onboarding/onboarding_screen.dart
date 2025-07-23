@@ -40,6 +40,7 @@ class OnboardingScreen extends ConsumerWidget {
             Expanded(
               child: PageView(
                 controller: ref.read(onboardingProvider).pageController,
+                onPageChanged: ref.read(onboardingProvider.notifier).changePage,
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
                   SingleChildScrollView(child: OnboardingNameInputScreen()),
@@ -50,7 +51,7 @@ class OnboardingScreen extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: ref.watch(onboardingProvider).currentPage == 0 ? Padding(
         padding: const EdgeInsets.all(20),
         child: HandyHomeButton1(
           text: '다음',
@@ -59,7 +60,7 @@ class OnboardingScreen extends ConsumerWidget {
             ref.read(onboardingProvider.notifier).createUser();
           },
         ),
-      ),
+      ) : null,
     );
   }
 }

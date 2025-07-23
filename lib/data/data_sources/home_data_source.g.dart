@@ -75,6 +75,39 @@ class _HomeDataSource implements HomeDataSource {
     return _value;
   }
 
+  @override
+  Future<ApiResponseModel<HomeModel>> createHome(
+    String imageUrl,
+    String userId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'image_url': imageUrl,
+      r'user_id': userId,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponseModel<HomeModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/home/create_home',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponseModel<HomeModel> _value;
+    try {
+      _value = ApiResponseModel<HomeModel>.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

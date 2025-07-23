@@ -31,6 +31,8 @@ class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
        _homeUseCase = homeUseCase,
        super(OnboardingState());
 
+  void changePage(int value) => state = state.copyWith(currentPage: value);
+
   void createUser() async {
     final id = state.idController.text;
     final name = state.nameController.text;
@@ -118,10 +120,21 @@ class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
       },
     );
   }
+
+  void createHome(String imagePath) async {
+    final user = _userUseCase.getSavedUser()!;
+    final home = await _homeUseCase.createHome(imagePath, user);
+    if (home != null) {
+      state = state.copyWith(isLoadingComplete: true);
+    } else {
+      SnackBarHelper.showSnackBar(message: '오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  }
 }
 
 class OnboardingState {
   final PageController pageController;
+  final int currentPage;
 
   // 사용자 정보 입력 페이지
   final TextEditingController idController;
@@ -143,6 +156,7 @@ class OnboardingState {
 
   OnboardingState({
     PageController? pageController,
+    int? currentPage,
     TextEditingController? idController,
     TextEditingController? nameController,
     TextEditingController? passwordController,
@@ -155,6 +169,7 @@ class OnboardingState {
     this.isLoadingComplete = false,
   }) : idController = idController ?? TextEditingController(),
        nameController = nameController ?? TextEditingController(),
+       currentPage = currentPage ?? 0,
        passwordController = passwordController ?? TextEditingController(),
        passwordMatchController = passwordMatchController ?? TextEditingController(),
        searchAddressController =
@@ -162,12 +177,14 @@ class OnboardingState {
        pageController = pageController ?? PageController();
 
   OnboardingState copyWith({
+    int? currentPage,
     List<ComplexEntity>? searchSuggestionList,
     ComplexEntity? selectedComplex,
     List<FloorPlanEntity>? selectedFloorPlanList,
     int? currentFloorPlanIndex,
     bool? isLoadingComplete,
   }) => OnboardingState(
+    currentPage: currentPage,
     pageController: pageController,
     nameController: nameController,
     searchAddressController: searchAddressController,

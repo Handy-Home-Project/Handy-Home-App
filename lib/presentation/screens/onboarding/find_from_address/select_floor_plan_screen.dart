@@ -18,6 +18,8 @@ class SelectFloorPlanScreen extends ConsumerWidget {
     final complex = onboardingState.selectedComplex;
     final floorPlanList = onboardingState.selectedFloorPlanList;
 
+    final imagePath = floorPlanList.isNotEmpty ? 'https://landthumb-phinf.pstatic.net${floorPlanList[onboardingState.currentFloorPlanIndex].floorPlanUrl}' : '';
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -75,7 +77,7 @@ class SelectFloorPlanScreen extends ConsumerWidget {
                           image: DecorationImage(
                             fit: BoxFit.contain,
                             image: NetworkImage(
-                              'https://landthumb-phinf.pstatic.net${floorPlanList[onboardingState.currentFloorPlanIndex].floorPlanUrl}',
+                              imagePath,
                             ),
                           ),
                         ),
@@ -109,16 +111,13 @@ class SelectFloorPlanScreen extends ConsumerWidget {
                       const Spacer(),
                       HandyHomeButton1(
                         onTap: () {
-                          ref
-                              .read(onboardingProvider.notifier)
-                              .selectFloorPlan();
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
                             NoAnimationRoute(
                               builder:
-                                  (context) => const OnboardingCompleteScreen(),
+                                  (context) => OnboardingCompleteScreen(imagePath: imagePath),
                             ),
                           );
                         },

@@ -1,6 +1,10 @@
+import 'package:handy_home_app/data/models/user_model.dart';
 import 'package:handy_home_app/domain/entities/complex_entity.dart';
 import 'package:handy_home_app/domain/entities/floor_plan_entity.dart';
+import 'package:handy_home_app/domain/entities/user_entity.dart';
 import 'package:handy_home_app/domain/repositories/home_repository.dart';
+
+import '../../data/models/home_model.dart';
 
 class HomeUseCase {
   final HomeRepository _homeRepository;
@@ -30,5 +34,11 @@ class HomeUseCase {
         .floorPlans
         .map(FloorPlanEntity.fromModel)
         .toList();
+  }
+
+  Future<HomeModel?> createHome(String imagePath, UserEntity user) async {
+    final result = await _homeRepository.createHome(imagePath, user.id);
+    if (result.isError()) return null;
+    return result.getOrThrow();
   }
 }

@@ -5,6 +5,8 @@ import '../../data/models/complex_detail_model.dart';
 import '../../data/models/complex_model.dart';
 import '../../data/models/floor_plan_model.dart';
 import '../../data/models/user_model.dart';
+import '../../data/models/home_model.dart';
+import '../../data/models/room_model.dart';
 
 class GenericConverter<T> implements JsonConverter<T, Object?> {
   const GenericConverter();
@@ -17,6 +19,8 @@ class GenericConverter<T> implements JsonConverter<T, Object?> {
         ComplexModel => ComplexModel.fromJson(json),
         ComplexDetailModel => ComplexDetailModel.fromJson(json),
         FloorPlanModel => FloorPlanModel.fromJson(json),
+        HomeModel => HomeModel.fromJson(json),
+        RoomModel => RoomModel.fromJson(json),
         _ => throw UnimplementedError('fromJson for type $T not implemented.')
       } as T;
     }

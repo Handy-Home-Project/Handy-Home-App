@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:handy_home_app/data/models/complex_detail_model.dart';
 import 'package:handy_home_app/data/models/complex_model.dart';
+import 'package:handy_home_app/data/models/home_model.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 abstract interface class HomeRepository {
@@ -10,4 +11,6 @@ abstract interface class HomeRepository {
 
   Future<Result<ComplexDetailModel, DioException>>
   getComplexDetailFromComplexNo(String complexNo);
+
+  Future<Result<HomeModel, DioException>> createHome(String imagePath, String userId);
 }

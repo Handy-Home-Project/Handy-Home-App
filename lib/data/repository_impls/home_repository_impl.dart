@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:handy_home_app/data/data_sources/home_data_source.dart';
 import 'package:handy_home_app/data/models/complex_detail_model.dart';
 import 'package:handy_home_app/data/models/complex_model.dart';
+import 'package:handy_home_app/data/models/home_model.dart';
 import 'package:handy_home_app/domain/repositories/home_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -36,6 +37,17 @@ class HomeRepositoryImpl implements HomeRepository {
       return Result.success(result.body);
     } on DioException catch (e, t) {
       log("getComplexDetailFromComplexNo", error: e, stackTrace: t);
+      return Result.error(e);
+    }
+  }
+
+  @override
+  Future<Result<HomeModel, DioException>> createHome(String imagePath, String userId) async {
+    try {
+      final result = await _homeDataSource.createHome(imagePath, userId);
+      return Result.success(result.body);
+    } on DioException catch (e, t) {
+      log("createHome", error: e, stackTrace: t);
       return Result.error(e);
     }
   }
