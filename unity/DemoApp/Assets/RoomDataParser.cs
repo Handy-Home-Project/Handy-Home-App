@@ -1,7 +1,8 @@
-
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Linq;
+using FlutterUnityIntegration;
 
 namespace DefaultNamespace
 {
@@ -18,14 +19,95 @@ public class RoomDataParser : MonoBehaviour
     
     private List<GameObject> generatedRooms = new List<GameObject>();
     private List<RoomData> rooms;
+
+    void OnEnable()
+    {
+        // UnityMessageManager가 존재하고, OnFlutterMessage 이벤트에 구독합니다.
+        if (UnityMessageManager.Instance != null)
+        {
+            UnityMessageManager.Instance.OnFlutterMessage += HandleFlutterMessage;
+            Debug.Log("RoomDataParser: UnityMessageManager.OnFlutterMessage 이벤트에 구독했습니다.");
+        }
+        else
+        {
+            Debug.LogError("RoomDataParser: UnityMessageManager 인스턴스를 찾을 수 없습니다. Flutter 메시지 수신 불가.");
+        }
+    }
+
+    void OnDisable()
+    {
+        // 스크립트가 비활성화될 때 이벤트 구독을 해제합니다.
+        if (UnityMessageManager.Instance != null)
+        {
+            UnityMessageManager.Instance.OnFlutterMessage -= HandleFlutterMessage;
+            Debug.Log("RoomDataParser: UnityMessageManager.OnFlutterMessage 이벤트 구독을 해제했습니다.");
+        }
+    }
+
+    /// <summary>
+    /// Flutter로부터 메시지를 수신했을 때 호출되는 콜백 함수.
+    /// </summary>
+    /// <param name="handler">Flutter에서 보낸 메시지 데이터가 담긴 MessageHandler 객체</param>
+    private void HandleFlutterMessage(MessageHandler handler)
+    {
+        Debug.Log($"RoomDataParser: Flutter로부터 메시지 수신 - Name: {handler.name}, ID: {handler.id}, Seq: {handler.seq}");
+
+        // "LoadRoomData"라는 이름의 메시지가 오면 JSON 데이터를 파싱합니다.
+        if (handler.name == "LoadRoomData")
+        {
+            try
+            {
+                // MessageHandler의 getData<T>()를 사용하여 JSON 문자열을 가져옵니다.
+                string roomJsonData = handler.getData<string>();
+                Debug.Log($"RoomDataParser: 'LoadRoomData' 메시지 수신. JSON 데이터: {roomJsonData.Substring(0, Mathf.Min(roomJsonData.Length, 200))}..."); // 긴 문자열은 일부만 표시
+                
+                ClearGeneratedObjects(); // 기존에 생성된 오브젝트들을 모두 제거
+                ParseRoomData(roomJsonData); // 수신한 JSON 데이터로 방을 파싱합니다.
+
+                // Flutter로 처리 완료 메시지를 보낼 수도 있습니다 (선택 사항)
+                // handler.send("Room data loaded successfully in Unity!"); 
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"RoomDataParser: Flutter 메시지 처리 중 오류 발생: {e.Message}");
+                // Flutter로 오류 메시지를 보낼 수도 있습니다.
+                // handler.send($"Error loading room data: {e.Message}");
+            }
+        }
+        else if (handler.name == "ClearRooms")
+        {
+            Debug.Log("RoomDataParser: 'ClearRooms' 메시지 수신.");
+            ClearGeneratedObjects();
+            // handler.send("Rooms cleared in Unity!");
+        }
+        // 다른 종류의 메시지도 여기에 추가할 수 있습니다.
+        // else 
+        // {
+        //     Debug.LogWarning($"RoomDataParser: 알 수 없는 Flutter 메시지 이름: {handler.name}");
+        // }
+    }
+
+        // 생성된 모든 GameObject를 안전하게 제거하는 내부 함수
+    private void ClearGeneratedObjects()
+    {
+        foreach (GameObject obj in generatedRooms)
+        {
+            if (obj != null)
+            {
+                DestroyImmediate(obj); // 에디터 모드에서는 DestroyImmediate를 사용해야 즉시 제거됩니다.
+            }
+        }
+        generatedRooms.Clear(); // 리스트 비우기
+        Debug.Log("RoomDataParser: 모든 생성된 오브젝트 제거 완료.");
+    }
     
     void Start()
     {
         // JSON 문자열이 있으면 파싱
-        if (!string.IsNullOrEmpty(jsonData))
-        {
-            ParseRoomData(jsonData);
-        }
+        // if (!string.IsNullOrEmpty(jsonData))
+        // {
+        //     ParseRoomData(jsonData);
+        // }
     }
     
     public void ParseRoomData(string json)
@@ -292,7 +374,7 @@ public class RoomDataParser : MonoBehaviour
     // 기본 머티리얼 생성 헬퍼 함수
     private Material CreateColorMaterial(Color color)
     {
-        Shader s = Shader.Find("Universal Render Pipeline/Lit");
+        Shader s = Shader.Find("Standard");
         var mat = new Material(s);
         mat.SetColor("_BaseColor", color); // 원하는 색상 지정
         return mat;
