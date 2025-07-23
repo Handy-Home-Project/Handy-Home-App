@@ -7,6 +7,7 @@ class HandyHomeTextEditingBox extends StatelessWidget {
     required this.controller,
     this.hint,
     this.onChanged,
+    this.hideText = false,
   });
 
   final String? hint;
@@ -14,6 +15,8 @@ class HandyHomeTextEditingBox extends StatelessWidget {
   final TextEditingController controller;
 
   final void Function(String)? onChanged;
+  
+  final bool hideText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class HandyHomeTextEditingBox extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
         child: TextField(
+          obscureText: hideText,
           style: Theme.of(context).textTheme.bodyMedium,
           onChanged: onChanged,
           decoration: InputDecoration(
