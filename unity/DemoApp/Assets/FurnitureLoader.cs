@@ -1,25 +1,35 @@
 using System;
 using System.Collections.Generic;
+using FlutterUnityIntegration;
+using Newtonsoft.Json;
 using UnityEngine;
 
-[Serializable]
-public class FurnitureMessageData
+[System.Serializable]
+public class FurnitureData
 {
-    public string filename;
-    //public Vector3Serializable position; // 위치 정보
+    public string fileName;
+    public string name;
+    public Position position;
+    public float rotation;
+}
+
+[System.Serializable]
+public class Position
+{
+    public float x;
+    public float z;
 }
 
 public class FurnitureLoader : MonoBehaviour
 {
-    public string[] fbxFileNames = { "" };
-    public int currentObjectIndex = 0;
-
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private GameObject selectedObject;
     private Camera mainCamera;
     private bool isDragging = false;
     private Vector3 dragOffset;
+
     private float rotationSpeed = 90f;
+
     // 카메라 회전 관련
     private float mouseX = 0f;
     private float mouseY = 0f;
@@ -32,22 +42,102 @@ public class FurnitureLoader : MonoBehaviour
         Move,
         Rotate,
         Size,
-        Camera  // 카메라 모드 추가
+        Camera // 카메라 모드 추가
     }
 
     private ControlMode currentMode = ControlMode.Move;
 
-    private void Start()
-    {
-        mainCamera = Camera.main;
-        if (mainCamera == null)
-            mainCamera = FindObjectOfType<Camera>();
 
-        // 첫 번째 객체 로드
-        for (int i = 0; i < fbxFileNames.Length; i++)
+    void OnEnable()
+    {
+        // UnityMessageManager가 존재하고, OnFlutterMessage 이벤트에 구독합니다.
+        if (UnityMessageManager.Instance != null)
         {
-            LoadObject(i);
+            UnityMessageManager.Instance.OnFlutterMessage += CreateFurnitureFromJson;
+            Debug.Log("RoomDataParser: UnityMessageManager.OnFlutterMessage 이벤트에 구독했습니다.");
         }
+        else
+        {
+            Debug.LogError("RoomDataParser: UnityMessageManager 인스턴스를 찾을 수 없습니다. Flutter 메시지 수신 불가.");
+        }
+    }
+
+    void OnDisable()
+    {
+        // 스크립트가 비활성화될 때 이벤트 구독을 해제합니다.
+        if (UnityMessageManager.Instance != null)
+        {
+            UnityMessageManager.Instance.OnFlutterMessage -= CreateFurnitureFromJson;
+            Debug.Log("RoomDataParser: UnityMessageManager.OnFlutterMessage 이벤트 구독을 해제했습니다.");
+        }
+    }
+
+
+    public void CreateFurnitureFromJson(MessageHandler handler)
+    {
+        String furnitureJsonData =  handler.getData<string>();
+        
+        if (string.IsNullOrEmpty(furnitureJsonData))
+        {
+            Debug.LogWarning("가구 JSON 데이터가 비어있음");
+            return;
+        }
+
+        List<FurnitureData> furnitureList = null;
+        try
+        {
+            furnitureList = JsonConvert.DeserializeObject<List<FurnitureData>>(furnitureJsonData);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"가구 JSON 파싱 실패: {e.Message}");
+            return;
+        }
+
+        foreach (var furniture in furnitureList)
+        {
+            if (string.IsNullOrEmpty(furniture.fileName))
+            {
+                Debug.LogWarning($"파일명이 빈 가구 데이터는 무시: {furniture.name}");
+                continue;
+            }
+
+            GameObject prefab = Resources.Load<GameObject>(furniture.fileName);
+            if (prefab == null)
+            {
+                Debug.LogWarning($"Resources에서 프리팹 못 찾음: {furniture.fileName}");
+                continue;
+            }
+
+            GameObject newObj = Instantiate(prefab);
+            newObj.transform.position = new Vector3(furniture.position.x, 0f, furniture.position.z);
+            newObj.transform.rotation = Quaternion.Euler(0f, furniture.rotation, 0f);
+            newObj.name = furniture.name;
+
+            // Collider가 없으면 기본 BoxCollider 추가 (선택 사항)
+            if (newObj.GetComponent<Collider>() == null)
+            {
+                var renderers = newObj.GetComponentsInChildren<Renderer>();
+                if (renderers.Length > 0)
+                {
+                    Bounds combinedBounds = renderers[0].bounds;
+                    foreach (var r in renderers)
+                        combinedBounds.Encapsulate(r.bounds);
+
+                    BoxCollider collider = newObj.AddComponent<BoxCollider>();
+                    collider.center = newObj.transform.InverseTransformPoint(combinedBounds.center);
+                    collider.size = combinedBounds.size;
+                }
+                else
+                {
+                    newObj.AddComponent<BoxCollider>().size = Vector3.one;
+                }
+            }
+
+            spawnedObjects.Add(newObj);
+        }
+
+        Debug.Log($"총 {spawnedObjects.Count} 개 가구 생성 완료");
     }
 
     private void Update()
@@ -208,101 +298,8 @@ public class FurnitureLoader : MonoBehaviour
         }
     }
 
-    // FBX 객체 로드
-    void LoadObject(int index)
-    {
-        if (index < 0 || index >= fbxFileNames.Length) return;
 
-        GameObject prefab = Resources.Load<GameObject>(fbxFileNames[index]);
-        if (prefab != null)
-        {
-            GameObject newObj = Instantiate(prefab);
-            newObj.transform.position = Vector3.zero;
-
-            // 자동 콜라이더 생성 및 설정
-            if (newObj.GetComponent<Collider>() == null)
-            {
-                // 자식 포함 모든 렌더러의 월드 범위 계산
-                Renderer[] renderers = newObj.GetComponentsInChildren<Renderer>();
-                if (renderers.Length > 0)
-                {
-                    Bounds combinedBounds = renderers[0].bounds;
-                    foreach (var rend in renderers)
-                    {
-                        combinedBounds.Encapsulate(rend.bounds);
-                    }
-
-                    // BoxCollider 추가 및 설정
-                    BoxCollider collider = newObj.AddComponent<BoxCollider>();
-                    // 월드 좌표 중심값을 로컬 좌표로 변환
-                    Vector3 localCenter = newObj.transform.InverseTransformPoint(combinedBounds.center);
-                    collider.center = localCenter;
-                    collider.size = combinedBounds.size;
-
-                    Debug.Log($"콜라이더 설정 - center: {collider.center}, size: {collider.size}");
-                }
-                else
-                {
-                    // 렌더러 없으면 기본 크기 콜라이더 적용
-                    BoxCollider collider = newObj.AddComponent<BoxCollider>();
-                    collider.size = Vector3.one;
-                    Debug.Log("Renderer가 없어 기본 콜라이더 크기 설정");
-                }
-            }
-
-            // 필요시 레이어 지정 (예: 기본 레이어)
-            if (newObj.layer == 0)
-            {
-                newObj.layer = 0; // Default 레이어 설정
-            }
-
-            spawnedObjects.Add(newObj);
-            selectedObject = newObj; // 새로 생성된 객체 선택
-
-            Debug.Log($"로드 완료: {fbxFileNames[index]} - 선택된 객체: {selectedObject.name}");
-            Debug.Log($"현재 총 객체 수: {spawnedObjects.Count}");
-        }
-        else
-        {
-            Debug.LogError($"파일을 찾을 수 없습니다: {fbxFileNames[index]}");
-        }
-    }
-
-
-    // 새 객체 생성
-    void SpawnNewObject()
-    {
-        LoadObject(currentObjectIndex);
-    }
-
-    // === 플러터로부터 가구 데이터를 받아 처리하는 함수 ===
-    public void ReceiveFurnitureDataFromFlutter(FlutterUnityIntegration.MessageHandler handler)
-    {
-        // try
-        // {
-        //     // MessageHandler를 통해 FurnitureMessageData를 역직렬화
-        //     FurnitureMessageData data = handler.getData<FurnitureMessageData>();
-
-        //     if (data != null && !string.IsNullOrEmpty(data.filename) && data.position != null)
-        //     {
-        //         // GLB 파일은 유니티에서 Prefab으로 임포트되어 있어야 합니다.
-        //         // Resources 폴더에 해당 Prefab이 있다고 가정하고 로드합니다.
-        //         LoadObject(data.filename, data.position.ToVector3());
-        //         Debug.Log($"플러터에서 가구 데이터 수신: 파일명={data.filename}, 위치={data.position.ToVector3()}");
-        //         handler.send("Furniture loaded successfully!"); // 플러터로 성공 응답
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("플러터로부터 받은 가구 데이터가 유효하지 않습니다.");
-        //         handler.send("Error: Invalid furniture data received."); // 플러터로 오류 응답
-        //     }
-        // }
-        // catch (System.Exception e)
-        // {
-        //     Debug.LogError($"플러터 메시지 처리 중 오류 발생: {e.Message}");
-        //     handler.send($"Error processing message: {e.Message}"); // 플러터로 오류 응답
-        // }
-    }
+    // pub
 
     // 마우스 위치의 객체 선택
     void SelectObjectUnderMouse()
@@ -345,7 +342,9 @@ public class FurnitureLoader : MonoBehaviour
                 isDragging = true;
                 // 더 안정적인 드래그를 위한 스크린 좌표 기반 계산
                 Vector3 screenPos = mainCamera.WorldToScreenPoint(selectedObject.transform.position);
-                dragOffset = selectedObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPos.z));
+                dragOffset = selectedObject.transform.position -
+                             mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+                                 screenPos.z));
                 Debug.Log($"드래그 시작: {selectedObject.name}, 오프셋: {dragOffset}");
             }
             else
@@ -371,7 +370,8 @@ public class FurnitureLoader : MonoBehaviour
 
         // Y축은 고정하고 X, Z축만 이동
         Vector3 newPosition = worldPos + dragOffset;
-        selectedObject.transform.position = new Vector3(newPosition.x, selectedObject.transform.position.y, newPosition.z);
+        selectedObject.transform.position =
+            new Vector3(newPosition.x, selectedObject.transform.position.y, newPosition.z);
     }
 
     // 드래그 종료
@@ -407,6 +407,7 @@ public class FurnitureLoader : MonoBehaviour
                 DestroyImmediate(obj);
             }
         }
+
         spawnedObjects.Clear();
         selectedObject = null;
         Debug.Log("모든 객체 제거 완료");
@@ -439,31 +440,30 @@ public class FurnitureLoader : MonoBehaviour
             currentMode = ControlMode.Move;
             Debug.Log("이동 모드로 변경");
         }
+
         if (GUI.Button(new Rect(320, 45, 80, 30), "사이즈 모드"))
         {
             currentMode = ControlMode.Size;
             Debug.Log("사이즈 모드로 변경");
         }
+
         if (GUI.Button(new Rect(320, 80, 80, 30), "회전 모드"))
         {
             currentMode = ControlMode.Rotate;
             Debug.Log("회전 모드로 변경");
         }
+
         if (GUI.Button(new Rect(320, 120, 80, 30), "카메라 모드"))
         {
             currentMode = ControlMode.Camera;
             Debug.Log("카메라 모드로 변경");
         }
 
-        // 액션 버튼
-        if (GUI.Button(new Rect(320, 160, 80, 30), "새 객체"))
-        {
-            SpawnNewObject();
-        }
         if (GUI.Button(new Rect(320, 200, 80, 30), "우클릭 삭제"))
         {
             DeleteSelectedObject();
         }
+
         if (GUI.Button(new Rect(320, 230, 80, 30), "모두 삭제"))
         {
             ClearAllObjects();
