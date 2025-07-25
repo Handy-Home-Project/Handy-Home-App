@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:handy_home_app/commons/theme/colors.dart';
-import 'package:handy_home_app/commons/utils/snack_bar_helper.dart';
 import 'package:handy_home_app/presentation/components/button/handy_home_button1.dart';
 import 'package:handy_home_app/presentation/providers/onboarding_provider.dart';
-import 'package:handy_home_app/presentation/screens/home_screen.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../commons/route/no_animation_route.dart';
+import '../home/screens/home_screen.dart';
 
 class OnboardingCompleteScreen extends ConsumerStatefulWidget {
   const OnboardingCompleteScreen({super.key, required this.imagePath});

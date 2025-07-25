@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="handy_home_app"
+        android:label="핸디홈"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

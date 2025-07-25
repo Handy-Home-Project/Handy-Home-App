@@ -422,76 +422,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultWallColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   defaultFloorColor: {r: 0.7294118, g: 0.49803922, b: 0.21960784, a: 1}
-  wallThickness: 0.1
-  furniturePrefabs:
-  - furnitureName: chair
-    prefab: {fileID: 919132149155446097, guid: d978b107dc655483e99da86004868ecf, type: 3}
-  - furnitureName: desk
-    prefab: {fileID: 919132149155446097, guid: 6eef0d3e05b8e47469c74c01c9d15707, type: 3}
-  - furnitureName: sofa
-    prefab: {fileID: -4830927529562680676, guid: ba83950fdec194b78b9ce757e01c9a44,
-      type: 3}
-  jsonData: "[\n  {\n    \"name\": \"\uAC70\uC2E4\",\n    \"vertexes\": [\n     
-    [\n        11.047850515463919,\n        5.862556701030928\n      ],\n      [\n       
-    11.047850515463919,\n        5.862556701030928\n      ],\n      [\n        13.833621621621623,\n       
-    5.862556701030928\n      ],\n      [\n        13.833621621621623,\n        5.862556701030928\n     
-    ]\n    ],\n    \"type\": \"LIVING_ROOM\"\n  },\n  {\n    \"name\": \"\uB0B4 \uBC29\",\n   
-    \"vertexes\": [\n      [\n        13.833621621621623,\n        5.862556701030928\n     
-    ],\n      [\n        13.833621621621623,\n        9.127687466087899\n      ],\n     
-    [\n        13.833621621621623,\n        9.127687466087899\n      ],\n      [\n       
-    13.833621621621623,\n        9.127687466087899\n      ],\n      [\n        16.95618636003172,\n       
-    9.127687466087899\n      ],\n      [\n        16.95618636003172,\n        5.862556701030928\n     
-    ]\n    ],\n    \"type\": \"BEDROOM\"\n  },\n  {\n    \"name\": \"\uBD80\uC5CC\",\n   
-    \"vertexes\": [\n      [\n        2.567388316151203,\n        5.862556701030928\n     
-    ],\n      [\n        2.567388316151203,\n        14.173973490427098\n      ],\n     
-    [\n        11.047850515463919,\n        14.173973490427098\n      ],\n      [\n       
-    11.047850515463919,\n        5.862556701030928\n      ]\n    ],\n    \"type\":
-    \"KITCHEN\"\n  },\n  {\n    \"name\": \"\uC791\uC5C5\uC2E4\",\n    \"vertexes\":
-    [\n      [\n        2.567388316151203,\n        0.06789690721649484\n      ],\n     
-    [\n        2.567388316151203,\n        5.862556701030928\n      ],\n      [\n       
-    11.047850515463919,\n        5.862556701030928\n      ],\n      [\n        11.047850515463919,\n       
-    0.06789690721649484\n      ]\n    ],\n    \"type\": \"BEDROOM\"\n  },\n  {\n   
-    \"name\": \"\uBC292\",\n    \"vertexes\": [\n      [\n        13.833621621621623,\n       
-    0.06789690721649484\n      ],\n      [\n        13.833621621621623,\n       
-    5.862556701030928\n      ],\n      [\n        20.0,\n        5.862556701030928\n     
-    ],\n      [\n        20.0,\n        0.06789690721649484\n      ]\n    ],\n   
-    \"type\": \"BEDROOM\"\n  },\n  {\n    \"name\": \"\uACF5\uC6A9\uACF5\uAC04\",\n   
-    \"vertexes\": [\n      [\n        13.833621621621623,\n        5.862556701030928\n     
-    ],\n      [\n        11.047850515463919,\n        5.862556701030928\n      ],\n     
-    [\n        11.047850515463919,\n        14.173973490427098\n      ],\n      [\n       
-    16.95618636003172,\n        14.173973490427098\n      ],\n      [\n        16.95618636003172,\n       
-    9.127687466087899\n      ],\n      [\n        13.833621621621623,\n        9.127687466087899\n     
-    ],\n      [\n        13.833621621621623,\n        5.862556701030928\n      ]\n   
-    ],\n    \"type\": \"ROOM\"\n  },\n  {\n    \"name\": \"\uC11C\uC7AC\",\n    \"vertexes\":
-    [\n      [\n        16.95618636003172,\n        5.862556701030928\n      ],\n     
-    [\n        16.95618636003172,\n        9.127687466087899\n      ],\n      [\n       
-    20.0,\n        9.127687466087899\n      ],\n      [\n        20.0,\n        5.862556701030928\n     
-    ]\n    ],\n    \"type\": \"BEDROOM\"\n  },\n  {\n    \"name\": \"\uD604\uAD00\",\n   
-    \"vertexes\": [\n      [\n        2.567388316151203,\n        1.366215022091311\n     
-    ],\n      [\n        0.18382268041237115,\n        1.366215022091311\n      ],\n     
-    [\n        0.18382268041237115,\n        14.173973490427098\n      ],\n     
-    [\n        2.567388316151203,\n        14.173973490427098\n      ]\n    ],\n   
-    \"type\": \"ROOM\"\n  },\n  {\n    \"name\": \"\uCC3D\uACE0\",\n    \"vertexes\":
-    [\n      [\n        16.95618636003172,\n        10.470735395189003\n      ],\n     
-    [\n        16.95618636003172,\n        13.060817869415809\n      ],\n      [\n       
-    17.67694845360825,\n        13.060817869416494\n      ],\n      [\n        17.67694845360825,\n       
-    14.173973490427098\n      ],\n      [\n        20.0,\n        14.173973490427098\n     
-    ],\n      [\n        20.0,\n        10.470735395189003\n      ]\n    ],\n   
-    \"type\": \"ROOM\"\n  },\n  {\n    \"name\": \"\uBCF5\uB3C4\",\n    \"vertexes\":
-    [\n      [\n        11.047850515463919,\n        0.06789690721649484\n      ],\n     
-    [\n        11.047850515463919,\n        5.862556701030928\n      ],\n      [\n       
-    13.833621621621623,\n        5.862556701030928\n      ],\n      [\n        13.833621621621623,\n       
-    1.366215022091311\n      ],\n      [\n        13.833621621621623,\n        0.06789690721649484\n     
-    ]\n    ],\n    \"type\": \"ROOM\"\n  },\n  {\n    \"name\": \"\uCC3D\uACE02\",\n   
-    \"vertexes\": [\n      [\n        16.95618556701031,\n        9.127690721649484\n     
-    ],\n      [\n        16.95618556701031,\n        10.470742268041239\n      ],\n     
-    [\n        20.0,\n        10.470742268041239\n      ],\n      [\n        20.0,\n       
-    9.127690721649484\n      ]\n    ],\n    \"type\": \"ROOM\"\n  },\n  {\n    \"name\":
-    \"\uCC3D\uACE03\",\n    \"vertexes\": [\n      [\n        16.95618636003172,\n       
-    13.060817869415809\n      ],\n      [\n        16.95618636003172,\n        14.173973490427098\n     
-    ],\n      [\n        17.67694845360825,\n        14.173973490427098\n      ],\n     
-    [\n        17.67694845360825,\n        13.060817869415809\n      ]\n    ],\n   
-    \"type\": \"ROOM\"\n  }\n]"
 --- !u!4 &1052269066
 Transform:
   m_ObjectHideFlags: 0
@@ -507,6 +437,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1180288840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180288842}
+  - component: {fileID: 1180288843}
+  - component: {fileID: 1180288844}
+  m_Layer: 0
+  m_Name: Dancing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180288842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180288840}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.191363, y: 10.148327, z: 6.9320045}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1180288843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180288840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b06e02465d34612bd433a7c522deb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1180288844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180288840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1c52b6ca4cb4cd597b2fd8a2c0bfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testJson: "[     {       \"fileName\": \"gb\",       \"name\": \"\uD14C\uC774\uBE14\",      
+    \"position\": {         \"x\": 7,         \"z\": 7       },       \"rotation\":
+    0     },     {       \"fileName\": \"hb\",       \"name\": \"\uD2F0\uBE44\",      
+    \"position\": {         \"x\": 15,         \"z\": 7       },       \"rotation\":
+    0     }   ]"
 --- !u!1 &1294154658
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,4 +551,5 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1052269066}
+  - {fileID: 1180288842}
   - {fileID: 1294154660}

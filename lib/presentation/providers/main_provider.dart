@@ -22,7 +22,7 @@ class MainNotifierState extends StateNotifier<MainState> {
   }
 
   void setUserEntity(UserEntity user) {
-    state.copyWith(userEntity: user);
+    state = state.copyWith(userEntity: user);
   }
 }
 

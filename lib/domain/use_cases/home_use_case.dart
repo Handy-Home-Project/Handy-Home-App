@@ -41,4 +41,16 @@ class HomeUseCase {
     if (result.isError()) return null;
     return result.getOrThrow();
   }
+
+  Future<HomeModel?> createHomePreview(HomeModel home, UserEntity user) async {
+    final result = await _homeRepository.createHomePreview(user.id, home.id);
+    if (result.isError()) return null;
+    return result.getOrThrow();
+  }
+
+  Future<List<HomeModel>> getHomeList(String userId) async {
+    final result = await _homeRepository.getHomes(userId);
+    if (result.isError()) return [];
+    return result.getOrThrow();
+  }
 }

@@ -51,4 +51,26 @@ class HomeRepositoryImpl implements HomeRepository {
       return Result.error(e);
     }
   }
+
+  @override
+  Future<Result<HomeModel, DioException>> createHomePreview(String userId, int homeId) async {
+    try {
+      final result = await _homeDataSource.createHomePreview(userId, homeId);
+      return Result.success(result.body);
+    } on DioException catch (e, t) {
+      log("createHomePreview", error: e, stackTrace: t);
+      return Result.error(e);
+    }
+  }
+
+  @override
+  Future<Result<List<HomeModel>, DioException>> getHomes(String userId) async {
+    try {
+      final result = await _homeDataSource.getHomes(userId);
+      return Result.success(result.body);
+    } on DioException catch (e, t) {
+      log("getHomes", error: e, stackTrace: t);
+      return Result.error(e);
+    }
+  }
 }

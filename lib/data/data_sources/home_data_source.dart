@@ -28,4 +28,15 @@ abstract class HomeDataSource {
     @Query("image_url") String imageUrl,
     @Query("user_id") String userId,
   );
+  
+  @GET('/api/home')
+  Future<ApiResponseListModel<HomeModel>> getHomes(
+    @Query("userId") String userId,
+  );
+
+  @POST('/api/home/{home_id}/preview')
+  Future<ApiResponseModel<HomeModel>> createHomePreview(
+    @Query("userId") String userId,
+    @Path("home_id") int homeId,
+  );
 }
