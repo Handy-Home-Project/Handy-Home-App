@@ -17,43 +17,43 @@ class InteriorScreen extends StatelessWidget {
     "type": "LIVING_ROOM",
     "vertexes": [
       [
-        14.63,
+        146.28,
         0.0
       ],
       [
-        14.63,
-        32.84
+        146.28,
+        328.41
       ],
       [
-        53.32,
-        32.84
+        533.2,
+        328.41
       ],
       [
-        53.32,
-        45.11
+        533.2,
+        451.1
       ],
       [
-        73.61,
-        45.11
+        736.1,
+        451.1
       ],
       [
-        73.61,
-        32.84
+        736.1,
+        328.41
       ],
       [
-        87.29,
-        32.84
+        872.94,
+        328.41
       ],
       [
-        87.29,
-        18.92
+        872.94,
+        189.22
       ],
       [
-        53.32,
-        18.92
+        533.2,
+        189.22
       ],
       [
-        53.32,
+        533.2,
         0.0
       ]
     ]
@@ -63,20 +63,20 @@ class InteriorScreen extends StatelessWidget {
     "type": "ROOM",
     "vertexes": [
       [
-        14.63,
-        32.84
+        146.28,
+        328.41
       ],
       [
-        14.63,
-        68.7
+        146.28,
+        687.03
       ],
       [
-        53.32,
-        68.7
+        533.2,
+        687.03
       ],
       [
-        53.32,
-        32.84
+        533.2,
+        328.41
       ]
     ]
   },
@@ -85,20 +85,20 @@ class InteriorScreen extends StatelessWidget {
     "type": "ROOM",
     "vertexes": [
       [
-        73.61,
-        32.84
+        736.1,
+        328.41
       ],
       [
-        73.61,
-        68.7
+        736.1,
+        687.03
       ],
       [
-        100.51,
-        68.7
+        1005.06,
+        687.03
       ],
       [
-        100.51,
-        32.84
+        1005.06,
+        328.41
       ]
     ]
   },
@@ -107,19 +107,19 @@ class InteriorScreen extends StatelessWidget {
     "type": "KITCHEN",
     "vertexes": [
       [
-        53.32,
+        533.2,
         0.0
       ],
       [
-        53.32,
-        18.92
+        533.2,
+        189.22
       ],
       [
-        83.05,
-        18.92
+        830.47,
+        189.22
       ],
       [
-        83.05,
+        830.47,
         0.0
       ]
     ]
@@ -129,20 +129,20 @@ class InteriorScreen extends StatelessWidget {
     "type": "OTHER",
     "vertexes": [
       [
-        87.29,
-        18.92
+        872.94,
+        189.22
       ],
       [
-        87.29,
-        32.84
+        872.94,
+        328.41
       ],
       [
-        100.51,
-        32.84
+        1005.06,
+        328.41
       ],
       [
-        100.51,
-        18.92
+        1005.06,
+        189.22
       ]
     ]
   },
@@ -151,24 +151,24 @@ class InteriorScreen extends StatelessWidget {
     "type": "VALCONY",
     "vertexes": [
       [
-        3.3,
-        9.01
+        33.03,
+        90.12
       ],
       [
         0.0,
-        13.97
+        139.67
       ],
       [
         0.0,
-        68.7
+        687.03
       ],
       [
-        14.63,
-        68.7
+        146.28,
+        687.03
       ],
       [
-        14.63,
-        9.01
+        146.28,
+        90.12
       ]
     ]
   },
@@ -177,20 +177,20 @@ class InteriorScreen extends StatelessWidget {
     "type": "BATH_ROOM",
     "vertexes": [
       [
-        53.32,
-        45.11
+        533.2,
+        451.1
       ],
       [
-        53.32,
-        68.7
+        533.2,
+        687.03
       ],
       [
-        70.31,
-        68.7
+        703.07,
+        687.03
       ],
       [
-        70.31,
-        45.11
+        703.07,
+        451.1
       ]
     ]
   },
@@ -199,19 +199,19 @@ class InteriorScreen extends StatelessWidget {
     "type": "OTHER",
     "vertexes": [
       [
-        3.3,
+        33.03,
         0.0
       ],
       [
-        3.3,
-        9.01
+        33.03,
+        90.12
       ],
       [
-        14.63,
-        9.01
+        146.28,
+        90.12
       ],
       [
-        14.63,
+        146.28,
         0.0
       ]
     ]
@@ -221,19 +221,19 @@ class InteriorScreen extends StatelessWidget {
     "type": "OTHER",
     "vertexes": [
       [
-        83.05,
+        830.47,
         0.0
       ],
       [
-        83.05,
-        3.59
+        830.47,
+        35.86
       ],
       [
-        88.71,
-        3.59
+        887.09,
+        35.86
       ],
       [
-        88.71,
+        887.09,
         0.0
       ]
     ]
@@ -243,19 +243,19 @@ class InteriorScreen extends StatelessWidget {
     "type": "OTHER",
     "vertexes": [
       [
-        93.9,
+        939.0,
         0.0
       ],
       [
-        93.9,
-        6.42
+        939.0,
+        64.17
       ],
       [
-        100.51,
-        6.42
+        1005.06,
+        64.17
       ],
       [
-        100.51,
+        1005.06,
         0.0
       ]
     ]
@@ -265,22 +265,32 @@ class InteriorScreen extends StatelessWidget {
     "type": "OTHER",
     "vertexes": [
       [
-        70.31,
-        45.11
+        703.07,
+        451.1
       ],
       [
-        70.31,
-        68.7
+        703.07,
+        687.03
       ],
       [
-        73.61,
-        68.7
+        736.1,
+        687.03
       ],
       [
-        73.61,
-        45.11
+        736.1,
+        451.1
       ]
     ]
+  }
+]
+""";
+
+  final String furnitureSample = """
+[
+  {
+    "furniture_name": "hb",
+    "coordinate": [1.0,1.0],
+    "rotate": 90.0
   }
 ]
 """;
@@ -306,6 +316,7 @@ class InteriorScreen extends StatelessWidget {
                   final prettyJson = const JsonEncoder.withIndent('  ').convert(data);
                   print(prettyJson);
                   controller.postMessage('Room', 'ParseRoomData', jsonSample);
+                  controller.postMessage('Room', 'SpawnFurniture', furnitureSample);
                 },
               ),
             )

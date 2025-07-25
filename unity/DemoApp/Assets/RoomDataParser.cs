@@ -306,8 +306,8 @@ namespace DefaultNamespace
         private Mesh CreateWallMesh(Vector3 start, Vector3 end)
         {
 
-            float roomHeight = 5f;
-            float wallThickness = 0.1234f;
+            float roomHeight = 50f;
+            float wallThickness = 1.234f;
 
             Vector3 direction = (end - start).normalized;
             Vector3 thicknessDir = Vector3.Cross(Vector3.up, direction); // 방 내부 방향으로만
@@ -428,7 +428,7 @@ namespace DefaultNamespace
         // 기본 머티리얼 생성 헬퍼 함수
         private Material CreateColorMaterial(Color color)
         {
-            Shader s = Shader.Find("Universal Render Pipeline/Lit");
+            Shader s = Shader.Find("Standard");
             var mat = new Material(s);
             mat.SetColor("_BaseColor", color); // 원하는 색상 지정
             return mat;
@@ -494,7 +494,7 @@ namespace DefaultNamespace
 
                 GameObject prefabToSpawn = null;
 
-                // Inspector에서 할당된 딕셔너리에서 프리팹을 찾습니다.
+                             // Inspector에서 할당된 딕셔너리에서 프리팹을 찾습니다.
                 if (_furniturePrefabMap.ContainsKey(furniture.furniture_name))
                 {
                     prefabToSpawn = _furniturePrefabMap[furniture.furniture_name];
@@ -503,8 +503,8 @@ namespace DefaultNamespace
                 {
                     // 프리팹이 딕셔너리에 없다면 Resources 폴더에서 로드 시도
                     // 예: Resources/Furniture/Chair.prefab
-                    // 이 방법을 사용하려면 해당 이름의 프리팹이 'Assets/Resources/Furniture/' 경로에 있어야 합니다.
-                    prefabToSpawn = Resources.Load<GameObject>($"Furniture/{furniture.furniture_name}");
+                    // 이 방법을 사용하려면 해당 이름의 프리팹이 'Assets/Resources' 경로에 있어야 합니다.
+                    prefabToSpawn = Resources.Load<GameObject>(furniture.furniture_name);
                     if (prefabToSpawn != null)
                     {
                         Debug.Log($"RoomDataParser: Resources 폴더에서 '{furniture.furniture_name}' 프리팹을 로드했습니다.");
