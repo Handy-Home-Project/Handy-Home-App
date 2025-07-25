@@ -12,11 +12,6 @@ public class RoomDataParser : MonoBehaviour
     public Color defaultWallColor = new Color(0.9f, 0.9f, 0.9f); // 밝은 회색
     public Color defaultFloorColor = new Color(0.6f, 0.4f, 0.2f);
     
-    
-    [Header("JSON 데이터")]
-    [TextArea(5, 10)]
-    public string jsonData;
-    
     private List<GameObject> generatedRooms = new List<GameObject>();
     private List<RoomData> rooms;
 
@@ -104,10 +99,10 @@ public class RoomDataParser : MonoBehaviour
     void Start()
     {
         //JSON 문자열이 있으면 파싱
-        if (!string.IsNullOrEmpty(jsonData))
-        {
-            ParseRoomData(jsonData);
-        }
+        // if (!string.IsNullOrEmpty(jsonData))
+        // {
+        //     ParseRoomData(jsonData);
+        // }
     }
     
     public void ParseRoomData(string json)

@@ -30,3 +30,15 @@ project(":unityLibrary").projectDir = file("unityLibrary")
 
 include(":unityLibrary")
 project(":unityLibrary").projectDir = file("./unityLibrary")
+
+
+include(":unityLibrary")
+project(":unityLibrary").projectDir = file("./unityLibrary")
+
+
+include(":unityLibrary")
+project(":unityLibrary").projectDir = file("./unityLibrary")
+
+
+include(":unityLibrary")
+project(":unityLibrary").projectDir = file("./unityLibrary")
