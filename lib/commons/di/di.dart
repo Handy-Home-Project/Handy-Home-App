@@ -17,8 +17,9 @@ class DependencyInjection {
   static Future<void> configure() async {
     // Dio
     getIt.registerSingleton<Dio>(
-      Dio(BaseOptions(baseUrl: "http://172.30.1.76:8080")),
+      Dio(BaseOptions(baseUrl: "http://172.30.1.4:8081")),
     );
+    getIt.get<Dio>().interceptors.add(LogInterceptor(responseBody: true));
 
     // DataSource
     getIt.registerSingleton<UserDataSource>(UserDataSource(getIt.get()));
