@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:handy_home_app/commons/theme/colors.dart';
+import 'package:handy_home_app/presentation/providers/main_provider.dart';
 import 'package:handy_home_app/presentation/providers/onboarding_provider.dart';
 import 'package:handy_home_app/presentation/screens/onboarding/onboarding_create_house_screen.dart';
 import 'package:handy_home_app/presentation/screens/onboarding/onboarding_name_input_screen.dart';
@@ -55,9 +56,18 @@ class OnboardingScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         child: HandyHomeButton1(
           text: '다음',
-          onTap: () {
+          onTap: () async {
             FocusScope.of(context).unfocus();
-            ref.read(onboardingProvider.notifier).createUser();
+            final user = await ref.read(onboardingProvider.notifier).createUser();
+
+            if (user != null) {
+              ref.read(mainProvider.notifier).setUserEntity(user);
+              ref.read(onboardingProvider).pageController.animateToPage(
+                1,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            }
           },
         ),
       ) : null,

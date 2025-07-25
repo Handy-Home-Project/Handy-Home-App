@@ -38,6 +38,7 @@ migrate_working_dir/
 /unity/DemoApp/obj/
 /unity/DemoApp/Temp/
 /unity/DemoApp/UserSettings/
+/unity/DemoApp/*csproj
 
 *.*.dart
 /android/unityLibrary/

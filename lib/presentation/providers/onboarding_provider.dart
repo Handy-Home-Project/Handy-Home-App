@@ -7,6 +7,7 @@ import 'package:handy_home_app/commons/di/di.dart';
 import 'package:handy_home_app/commons/utils/snack_bar_helper.dart';
 import 'package:handy_home_app/domain/entities/complex_entity.dart';
 import 'package:handy_home_app/domain/entities/floor_plan_entity.dart';
+import 'package:handy_home_app/domain/entities/user_entity.dart';
 import 'package:handy_home_app/domain/use_cases/home_use_case.dart';
 import 'package:handy_home_app/domain/use_cases/user_use_case.dart';
 import 'package:handy_home_app/presentation/providers/main_provider.dart';
@@ -33,52 +34,50 @@ class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
 
   void changePage(int value) => state = state.copyWith(currentPage: value);
 
-  void createUser() async {
+  Future<UserEntity?> createUser() async {
     final id = state.idController.text;
     final name = state.nameController.text;
     final password = state.passwordController.text;
     final passwordMatch = state.passwordMatchController.text;
 
     if (id.length <= 5) {
-      return SnackBarHelper.showSnackBar(
+      SnackBarHelper.showSnackBar(
         message: '아이디는 6글자 이상으로 작성해주세요.',
       );
+
+      return null;
     }
 
     if (!RegExp(r'^[a-zA-Z가-힣]{1,5}$').hasMatch(name)) {
-      return SnackBarHelper.showSnackBar(
+      SnackBarHelper.showSnackBar(
         message: '이름은 영문 및 한글, 5글자 이내로 작성해주세요.',
       );
+
+      return null;
     }
 
     if (password.length <= 5) {
-      return SnackBarHelper.showSnackBar(
+      SnackBarHelper.showSnackBar(
         message: '비밀번호는 6글자 이상으로 작성해주세요.',
       );
+      return null;
     }
 
     if (password != passwordMatch) {
-      return SnackBarHelper.showSnackBar(
+      SnackBarHelper.showSnackBar(
           message: '비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.',
       );
+      return null;
     }
 
     final newUser = await _userUseCase.createUser(id, name, password);
     if (newUser != null) {
-      log(newUser.toString());
-      final container = ProviderContainer();
-      container.read(mainProvider.notifier).setUserEntity(newUser);
-      container.dispose();
-
-      state.pageController.animateToPage(
-        1,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      return newUser;
     } else {
-      return SnackBarHelper.showSnackBar(
+      SnackBarHelper.showSnackBar(
         message: '오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
       );
+      return null;
     }
   }
 
