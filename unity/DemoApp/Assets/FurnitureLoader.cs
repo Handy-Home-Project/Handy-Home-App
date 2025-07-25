@@ -47,6 +47,14 @@ public class FurnitureLoader : MonoBehaviour
 
     private ControlMode currentMode = ControlMode.Move;
 
+    void Start()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+    }
+
 
     void OnEnable()
     {
